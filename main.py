@@ -41,7 +41,7 @@ TOKEN = os.getenv("Bot_Token")
 
 # ----------------------------Binance and Telegram Clients Initialization--------
 # Binance Client
-Bin = BinClient(BIN_KEY, BIN_SECRET, testnet=True)
+Bin = BinClient(BIN_KEY, BIN_SECRET)
 # Pyrogram Client
 Py = PyClient("Aagreb", api_id=TEL_ID, api_hash=TEL_HASH)
 
@@ -276,7 +276,7 @@ def place_order(DicValues: dict):
 # ---------------------------------Pyrogram Listner Funtion--------------------------------
 @Py.on_message(filters.channel & (filters.text | filters.photo))
 async def process_message(client, message):
-    if message.chat.title == "TeleBotGround":
+    if message.chat.title == [Channel Name]:
         try:
             message_text_upper = message.text.upper()
             if "SHORT" in message_text_upper or "LONG" in message_text_upper:
@@ -294,12 +294,9 @@ async def process_message(client, message):
 def main():
     my_handler = MessageHandler(process_message)
     Py.add_handler(my_handler)
-    relay("BaW BaW BaW")
-    try:
-        Py.run()
-    except Exception as err:
-        relay(f"Failed To Start the Bot, Reason:{err}")
-    relay("Tchuss Ya Zuss")
+    relay("Bot Started")
+    Py.run()
+    relay("Bot Stopped")
 
 
 if __name__ == "__main__":
